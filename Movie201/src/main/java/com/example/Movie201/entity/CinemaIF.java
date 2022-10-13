@@ -1,6 +1,7 @@
 package com.example.Movie201.entity;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class CinemaIF {
+public class CinemaIF implements INNOX, PVR {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,25 +36,18 @@ public class CinemaIF {
 	// user relation
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private User user;
-	
+
 	@OneToMany
 	@JoinColumn
 	@JsonBackReference
 	private List<Seat> seats;
 
-	@Embedded
-	private PVR pvr;
-
-	@Embedded
-	private INNOX innox;
-
-	public CinemaIF(Long cinemaId, List<Screen> screen, User user, PVR pvr, INNOX innox) {
+	public CinemaIF(Long cinemaId, List<Screen> screen, User user) {
 		super();
 		this.cinemaId = cinemaId;
 		this.screen = screen;
 		this.user = user;
-		this.pvr = pvr;
-		this.innox = innox;
+
 	}
 
 	public Long getCinemaId() {
@@ -80,24 +74,41 @@ public class CinemaIF {
 		this.user = user;
 	}
 
-	public PVR getPvr() {
-		return pvr;
-	}
-
-	public void setPvr(PVR pvr) {
-		this.pvr = pvr;
-	}
-
-	public INNOX getInnox() {
-		return innox;
-	}
-
-	public void setInnox(INNOX innox) {
-		this.innox = innox;
-	}
-
 	public CinemaIF() {
 
+	}
+
+	@Override
+	public String toString() {
+		return "CinemaIF [cinemaId=" + cinemaId + ", screen=" + screen + ", user=" + user + ", seats=" + seats + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cinemaId, screen, seats, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CinemaIF other = (CinemaIF) obj;
+		return Objects.equals(cinemaId, other.cinemaId) && Objects.equals(screen, other.screen)
+				&& Objects.equals(seats, other.seats) && Objects.equals(user, other.user);
+	}
+
+	@Override
+	public void bookedPvr() {
+		System.out.println("Movie ticket booked in PVR "+ getCinemaId()+"-"+getScreen()+"-"+getUser());
+	}
+
+	@Override
+	public void bookedInnox() {
+		System.out.println("Movie ticket booked in PVR "+ getCinemaId()+"-"+getScreen()+"-"+getUser());
 	}
 
 }

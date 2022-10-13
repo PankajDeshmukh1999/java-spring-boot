@@ -1,5 +1,7 @@
 package com.example.Movie201.entity;
 
+import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,16 +37,15 @@ public class Seat {
 		this.date = date;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL , fetch =  FetchType.EAGER)
 	@JoinColumn
-//	@JsonIgnore
 	@JsonManagedReference
 	private Screen screen;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JsonBackReference
 	@JoinColumn
-	private CinemaIF  cinemaIF;
+	private CinemaIF cinemaIF;
 
 	public int getSeatId() {
 		return seatId;
@@ -78,8 +79,6 @@ public class Seat {
 		this.screen = screen;
 	}
 
-	
-
 	public CinemaIF getCinemaIF() {
 		return cinemaIF;
 	}
@@ -87,7 +86,6 @@ public class Seat {
 	public void setCinemaIF(CinemaIF cinemaIF) {
 		this.cinemaIF = cinemaIF;
 	}
-	
 
 	public Seat(int seatId, int seatNumber, Boolean isBooked, String date, Screen screen, CinemaIF cinemaIF) {
 		super();
@@ -102,4 +100,30 @@ public class Seat {
 	public Seat() {
 
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cinemaIF, date, isBooked, screen, seatId, seatNumber);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Seat other = (Seat) obj;
+		return Objects.equals(cinemaIF, other.cinemaIF) && Objects.equals(date, other.date)
+				&& Objects.equals(isBooked, other.isBooked) && Objects.equals(screen, other.screen)
+				&& seatId == other.seatId && seatNumber == other.seatNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "Seat [seatId=" + seatId + ", seatNumber=" + seatNumber + ", isBooked=" + isBooked + ", date=" + date
+				+ ", screen=" + screen + ", cinemaIF=" + cinemaIF + "]";
+	}
+
 }

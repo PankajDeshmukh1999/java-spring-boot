@@ -1,5 +1,7 @@
 package com.example.Movie201.entity;
 
+import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,9 +21,9 @@ public class Movie {
 	private String title;
 	private String releaseDate;
 	private String showcycle;
-	
+
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Screen screen;
 
 	public int getId() {
@@ -72,9 +74,33 @@ public class Movie {
 		this.showcycle = showcycle;
 		this.screen = screen;
 	}
-	
+
 	public Movie() {
-		
+
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, releaseDate, screen, showcycle, title);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Movie other = (Movie) obj;
+		return id == other.id && Objects.equals(releaseDate, other.releaseDate) && Objects.equals(screen, other.screen)
+				&& Objects.equals(showcycle, other.showcycle) && Objects.equals(title, other.title);
+	}
+
+	@Override
+	public String toString() {
+		return "Movie [id=" + id + ", title=" + title + ", releaseDate=" + releaseDate + ", showcycle=" + showcycle
+				+ ", screen=" + screen + "]";
+	}
+
 }

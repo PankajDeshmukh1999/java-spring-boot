@@ -8,21 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.Movie201.entity.Movie;
-import com.example.Movie201.repo.MovieRepo;
+import com.example.Movie201.repository.MovieRepo;
 
 @Service
-@Transactional
 public class MovieService {
-	
+
 	@Autowired
 	private MovieRepo movieRepo;
-	
+
+	@Transactional
 	public Movie saveMovies(Movie movie) {
 		return movieRepo.save(movie);
 	}
-	
-	public List<Movie> getAllMovieDetails(){
+
+	@Transactional
+	public List<Movie> getAllMovieDetails() {
 		return movieRepo.findAll();
 	}
 
+	@Transactional
+	public Movie findById(int id) {
+		return movieRepo.findById(id);
+	}
 }

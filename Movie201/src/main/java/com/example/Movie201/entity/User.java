@@ -1,6 +1,7 @@
 package com.example.Movie201.entity;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,13 +13,13 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String userName;
 	private String userPassword;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<CinemaIF> cinemaIF;
 
@@ -61,10 +62,33 @@ public class User {
 		this.userPassword = userPassword;
 		this.cinemaIF = cinemaIF;
 	}
-	
+
 	public User() {
-		
+
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cinemaIF, id, userName, userPassword);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(cinemaIF, other.cinemaIF) && id == other.id && Objects.equals(userName, other.userName)
+				&& Objects.equals(userPassword, other.userPassword);
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", userPassword=" + userPassword + ", cinemaIF=" + cinemaIF
+				+ "]";
+	}
 
 }

@@ -1,5 +1,7 @@
 package com.example.Movie201.entity;
 
+import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -71,7 +73,30 @@ public class Screen {
 	}
 
 	public Screen() {
-		
+
 	}
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cinemaIF, id, movie, type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Screen other = (Screen) obj;
+		return Objects.equals(cinemaIF, other.cinemaIF) && id == other.id && Objects.equals(movie, other.movie)
+				&& Objects.equals(type, other.type);
+	}
+
+	@Override
+	public String toString() {
+		return "Screen [id=" + id + ", type=" + type + ", movie=" + movie + ", cinemaIF=" + cinemaIF + "]";
+	}
+
 }

@@ -1,6 +1,10 @@
 package com.example.Movie201.entity;
 
+import java.util.Objects;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,12 +20,12 @@ public class SeatBooking {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL , fetch =  FetchType.EAGER)
 	@JoinColumn
 	@JsonManagedReference
 	private Seat seat;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL , fetch =  FetchType.EAGER)
 	@JoinColumn
 	private Screen screen;
 
@@ -59,4 +63,28 @@ public class SeatBooking {
 	public SeatBooking() {
 		
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, screen, seat);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SeatBooking other = (SeatBooking) obj;
+		return Objects.equals(id, other.id) && Objects.equals(screen, other.screen) && Objects.equals(seat, other.seat);
+	}
+
+	@Override
+	public String toString() {
+		return "SeatBooking [id=" + id + ", seat=" + seat + ", screen=" + screen + "]";
+	}
+	
+	
 }
