@@ -1,0 +1,20 @@
+Throwable (root of hierarchy )
+           Exception-
+                     IOException
+                     SQLException
+                     FileNotFoundException
+                     ClassNotFoundException
+                     RuntimeException(unchecked exception)-
+                                        -ArithmeticException
+                                        -NullPointerException
+                                        -NumberFormatException
+                                        -SecurityException
+                                        -IndexOutOfBoundException-
+                                                                    -ArrayIndexOutOfBoundException
+                                                                    -StringIndexOutOfBoundException
+
+
+          Error-
+                VirtualError
+                OutOfMemoryError
+                StackOverFlowError
