@@ -1,12 +1,13 @@
 package task25Oct;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CustomerMain {
 
-	public static void main(String[] args) throws CustomerNotFound {
+	public static void main(String[] args) throws CustomerNotFound, ParseException {
 
 		Scanner sc = new Scanner(System.in);
 
@@ -58,6 +59,9 @@ public class CustomerMain {
 				System.out.println(customer2.getContactNumber());
 				System.out.println(customer2.getCreatedOn());
 			}
+			System.out.println("***************--------*****************");
+			CustomerBO cs = new CustomerBO();
+//			cs.sortById(filter);
 			sc.close();
 		}
 	}
