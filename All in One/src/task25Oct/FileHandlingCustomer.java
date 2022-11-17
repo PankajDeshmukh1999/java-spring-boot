@@ -30,7 +30,7 @@ public class FileHandlingCustomer {
 		}
 		
 		
-		System.out.println("Search customer list");
+		System.out.println("Search customer list:");
 		String s = sc.nextLine();
 		List<Customer> list2 = bo.findCustomerNameFromList(list, s);
 		System.out.println("Id\tName\t\tGender\t\tEmail\tContactNumber\t\tCreateOn");

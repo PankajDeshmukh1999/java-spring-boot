@@ -43,9 +43,6 @@ public class CustomerBO {
 
 		List<Customer> filter = new ArrayList<>();
 
-//		List<Customer> cl = customers.stream().filter(e -> e.getName().equalsIgnoreCase(subString))
-//				.collect(Collectors.toList());
-
 		for (Customer customer : customers) {
 			if (customer.getName().toLowerCase().contains(subString)) {
 				filter.add(customer);
