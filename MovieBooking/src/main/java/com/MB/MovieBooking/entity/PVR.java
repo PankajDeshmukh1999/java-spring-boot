@@ -1,21 +1,33 @@
-package com.example.Movie201.entity;
+package com.MB.MovieBooking.entity;
 
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import org.hibernate.Hibernate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "pvr")
-public class PVR extends CinemaIF {
+public class PVR extends Cinema {
 
 	private String hallNumber;
 	private String seatNumber;
 	private Float price;
 	@JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
 	private String showDate;
+
+	public PVR() {
+		super();
+	}
+
+	public PVR(String hallNumber, String seatNumber, Float price, String showDate) {
+		super();
+		this.hallNumber = hallNumber;
+		this.seatNumber = seatNumber;
+		this.price = price;
+		this.showDate = showDate;
+	}
 
 	public String getHallNumber() {
 		return hallNumber;
@@ -49,36 +61,18 @@ public class PVR extends CinemaIF {
 		this.showDate = showDate;
 	}
 
-	public PVR(String hallNumber, String seatNumber, Float price, String showDate) {
-		super();
-		this.hallNumber = hallNumber;
-		this.seatNumber = seatNumber;
-		this.price = price;
-		this.showDate = showDate;
-	}
-
-	public PVR() {
-
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+			return false;
+		PVR pvr = (PVR) o;
+		return getCinemaId() != null && Objects.equals(getCinemaId(), pvr.getCinemaId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(hallNumber, price, seatNumber, showDate);
+		return getClass().hashCode();
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PVR other = (PVR) obj;
-		return Objects.equals(hallNumber, other.hallNumber) && Objects.equals(price, other.price)
-				&& Objects.equals(seatNumber, other.seatNumber) && Objects.equals(showDate, other.showDate);
-	}
-	
-	
-
 }

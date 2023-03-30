@@ -16,12 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
-public class CinemaIF implements INNOX, PVR {
+public class CinemaIF implements Comparable<CinemaIF>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -102,13 +100,9 @@ public class CinemaIF implements INNOX, PVR {
 	}
 
 	@Override
-	public void bookedPvr() {
-		System.out.println("Movie ticket booked in PVR "+ getCinemaId()+"-"+getScreen()+"-"+getUser());
+	public int compareTo(CinemaIF o) {
+		return 0;
 	}
 
-	@Override
-	public void bookedInnox() {
-		System.out.println("Movie ticket booked in PVR "+ getCinemaId()+"-"+getScreen()+"-"+getUser());
-	}
 
 }

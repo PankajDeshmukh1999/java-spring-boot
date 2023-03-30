@@ -14,7 +14,7 @@ public class Application extends Thread {
 		for (int i = 0; i < 3; i++) {
 			System.out.println("thread......");
 			try {
-				sleep(1000);
+				sleep(10000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
